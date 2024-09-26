@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма завантаження файлу</title>
+</head>
+
+<body>
+    <h1>Введіть свої дані</h1>
+    <form action="process.php" method="POST" enctype="multipart/form-data">
+        <input type="file" name="fileToUpload">
+        <br><br>
+        <input type="submit" value="Відправити">
+        <br><br>
+    </form>
+    <h1>Введіть текст для log.txt</h1>
+    <form action="text.php" method="POST" enctype="multipart/form-data">
+        <textarea name="textToUpload" rows="20" cols="50"></textarea>
+        <br><br>
+        <input type="submit" value="Записати">
+        <br><br>
+        
+    </form>
+</body>
+
+</html>
