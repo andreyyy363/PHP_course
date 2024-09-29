@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина покупок</title>
+</head>
+
+<body>
+    <h1>Корзина</h1>
+    <form method="POST" action="process.php">
+        <label for="product">Товар: </label>
+        <input type="text" id="product" name="product" required>
+        <button type="submit">Додати до корзини</button>
+    </form>
+
+    <h2>Поточні товари:</h2>
+    <ul>
+        <?php if (!empty($_SESSION['cart'])): ?>
+        <?php foreach ($_SESSION['cart'] as $item): ?>
+        <li>
+            <?php echo $item; ?>
+        </li>
+        <?php endforeach; ?>
+        <?php else: ?>
+        <p>Корзина порожня.</p>
+        <?php endif; ?>
+    </ul>
+
+    <form method="POST" action="process.php">
+        <button type="submit" name="clear_cart">Очистити корзину</button>
+    </form>
+
+    <h2>Попередні покупки:</h2>
+    <ul>
+        <?php if (!empty($previous_cart)): ?>
+        <?php foreach ($previous_cart as $item): ?>
+        <li>
+            <?php echo $item; ?>
+        </li>
+        <?php endforeach; ?>
+        <?php else: ?>
+        <p>Немає попередніх покупок.</p>
+        <?php endif; ?>
+    </ul>
+
+    <form method="POST" action="process.php">
+        <button type="submit" name="clear_previous_cart">Очистити попередні покупки</button>
+    </form>
+</body>
+
+</html>

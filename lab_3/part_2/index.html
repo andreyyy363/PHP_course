@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма входу</title>
+</head>
+
+<body>
+
+    <?php if ($greeting): ?>
+    <h1>
+        <?php echo $greeting; ?>
+    </h1>
+    <form action="process.php" method="POST">
+        <button type="submit" name="logout">Вийти</button>
+    </form>
+
+    <?php else: ?>
+    <?php if (isset($error)): ?>
+    <p style="color: red;">
+        <?php echo $error; ?>
+    </p>
+    <?php endif; ?>
+    <h1>Введіть свої дані</h1>
+    <form action="process.php" method="POST">
+        <label for="username">Логін:</label>
+        <input type="text" id="login" name="login" required>
+        <br><br>
+        <label for="last_name">Пароль:</label>
+        <input type="password" id="password" name="password" required>
+        <br><br>
+        <input type="submit" value="Увійти">
+    </form>
+    <?php endif; ?>
+
+</body>
+
+</html>

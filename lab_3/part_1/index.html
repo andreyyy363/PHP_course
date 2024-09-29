@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма вводу</title>
+</head>
+
+<body>
+
+    <h1>
+        <?php echo $greeting ? $greeting : 'Введіть ваше ім\'я'; ?>
+    </h1>
+    <form action="part1.php" method="POST">
+        <label for="name">Ім'я:</label>
+        <input type="text" id="name" name="name" required>
+        <br><br>
+        <input type="submit" value="Відправити">
+    </form>
+
+    <?php 
+    if ($greeting): ?>
+    <form method="POST" action="part1.php">
+        <br><br>
+        <button type="submit" name="delete_cookie">Видалити кукі</button>
+    </form>
+    <?php endif; ?>
+</body>
+
+</html>
