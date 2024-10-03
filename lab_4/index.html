@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизація та реєстрація</title>
+</head>
+
+<body>
+
+    <?php if (!isset($_SESSION['username'])): ?>
+    <h2>Форма реєстрації</h2>
+    <form action="process.php" method="POST">
+        <label for="username">Ім'я користувача:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="email">Електронна пошта:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <button type="submit" name="register">Зареєструватися</button>
+    </form>
+
+    <h2>Форма авторизації</h2>
+    <form action="process.php" method="POST">
+        <label for="username">Ім'я користувача:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <button type="submit" name="login">Увійти</button>
+    </form>
+    <?php else: ?>
+    <h1>Вітаємо,
+        <?php echo $_SESSION['username']; ?>!
+    </h1>
+    <form action="process.php" method="POST">
+        <button type="submit" name="logout">Вийти</button>
+    </form>
+    <?php endif; ?>
+
+</body>
+
+</html>
