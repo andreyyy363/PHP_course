@@ -1,5 +1,6 @@
 <?php
 
+// Інтерфейс для банківських рахунків
 interface AccountInterface
 {
     public function deposit(float $amount): void;
@@ -7,19 +8,21 @@ interface AccountInterface
     public function getBalance(): float;
 }
 
+// Базовий клас банківського рахунку
 class BankAccount implements AccountInterface
 {
     const MIN_BALANCE = 0;
-
     protected float $balance;
     protected string $currency;
 
+    // Конструктор класу
     public function __construct(string $currency)
     {
         $this->balance = self::MIN_BALANCE;
         $this->currency = $currency;
     }
 
+    // Поповнення рахунку
     public function deposit(float $amount): void
     {
         if ($amount <= 0) {
@@ -28,8 +31,10 @@ class BankAccount implements AccountInterface
         $this->balance += $amount;
     }
 
+    // Зняття коштів
     public function withdraw(float $amount): void
     {
+        // 
         if ($amount <= 0) {
             throw new Exception("Некоректна сума для зняття");
         }
@@ -39,21 +44,26 @@ class BankAccount implements AccountInterface
         $this->balance -= $amount;
     }
 
+    // Отримання балансу
     public function getBalance(): float
     {
         return $this->balance;
     }
 }
 
+// Клас для накопичувального рахунку
 class SavingsAccount extends BankAccount
 {
+    // Відсоткова ставка
     public static float $interestRate;
 
+    // Встановлення відсоткової ставки
     public static function setInterestRate(float $rate): void
     {
         self::$interestRate = $rate;
     }
 
+    // Застосування відсотків
     public function applyInterest(): void
     {
         $interest = $this->balance * (self::$interestRate / 100);
