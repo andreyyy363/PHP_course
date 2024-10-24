@@ -1,4 +1,6 @@
 <?php
+include 'validation.php';
+
 session_start();
 
 // Перевірка, чи користувач автентифікований
@@ -16,14 +18,25 @@ if (!$conn) {
 
 // Отримання даних з форми
 $username = $_POST['username'];
-$password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+$email = $_POST['email'];
+$password = $_POST['password'];
+
+
+// Валідація даних форми
+$validationError = validateForm($username, $email, $password);
+if ($validationError) {
+    pg_close($conn);
+    exit();
+}
+
+$passwordHash = password_hash($password, PASSWORD_BCRYPT);
 
 // Отримання поточного імені користувача з сесії
 $current_username = $_SESSION['username'];
 
 // Оновлення даних користувача
 $sql = "UPDATE users SET username = $1, password = $2 WHERE username = $3";
-$result = pg_query_params($conn, $sql, array($username, $password, $current_username));
+$result = pg_query_params($conn, $sql, array($username, $passwordHash, $current_username));
 
 // Перевірка, чи дані користувача успішно оновлені
 if ($result) {
@@ -34,4 +47,3 @@ if ($result) {
 }
 
 pg_close($conn);
-?>

@@ -32,23 +32,22 @@ $(document).ready(function () {
     );
     if (validationMessage) {
       $("#registerMessage").text(validationMessage);
-      return;
+    } else {
+      // Відправка AJAX-запиту на сервер
+      $.ajax({
+        type: "POST",
+        url: "register.php",
+        data: { username: username, email: email, password: password },
+        success: function (response) {
+          if (response === "success") {
+            alert("Реєстрація успішна!");
+            window.location.href = "index.php";
+          } else {
+            $("#registerMessage").text(response);
+          }
+        },
+      });
     }
-
-    // Відправка AJAX-запиту на сервер
-    $.ajax({
-      type: "POST",
-      url: "register.php",
-      data: { username: username, email: email, password: password },
-      success: function (response) {
-        if (response === "success") {
-          alert("Реєстрація успішна!");
-          window.location.href = "index.php";
-        } else {
-          $("#registerMessage").text(response);
-        }
-      },
-    });
   });
 
   // Валідація форми входу
@@ -82,22 +81,21 @@ $(document).ready(function () {
     const validationMessage = validateForm(username, email, password);
     if (validationMessage) {
       $("#message").text(validationMessage);
-      return;
+    } else {
+      $.ajax({
+        url: "update_profile.php",
+        type: "POST",
+        data: { username: username, email: email, password: password },
+        success: function (response) {
+          if (response === "success") {
+            alert("Профіль успішно змінено!");
+            window.location.href = "index.php";
+          } else {
+            $("#loginMessage").text(response);
+          }
+        },
+      });
     }
-
-    $.ajax({
-      url: "update_profile.php",
-      type: "POST",
-      data: { username: username, email: email, password: password },
-      success: function (response) {
-        if (response === "success") {
-          alert("Профіль успішно змінено!");
-          window.location.href = "index.php";
-        } else {
-          $("#loginMessage").text(response);
-        }
-      },
-    });
   });
 
   function validateForm(username, email, password, confirmPassword) {
